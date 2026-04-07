@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <title>ລາຍລະອຽດສິນຄ້າ</title>
+    <style>
+        body { font-family: 'Phetsarath OT', sans-serif; background: #f4f7f6; margin: 0; }
+        header { background: #232f3e; color: white; padding: 15px 5%; }
+        .container { max-width: 900px; margin: 40px auto; background: white; display: flex; padding: 20px; border-radius: 10px; gap: 30px; }
+        img { width: 400px; border-radius: 10px; }
+        .details h2 { font-size: 2rem; }
+        .price { color: #B12704; font-size: 1.5rem; font-weight: bold; margin: 20px 0; }
+        .btn { background: #febd69; padding: 10px 30px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header><a href="index.html" style="color:white">⬅ ກັບຄືນ</a></header>
+    <div class="container" id="product-detail">ກຳລັງໂຫຼດ...</div>
+
+    <script>
+        const id = new URLSearchParams(window.location.search).get('id');
+        fetch('/api/products/' + id)
+            .then(res => res.json())
+            .then(p => {
+                document.getElementById('product-detail').innerHTML = `
+                    <img src="${p.image}">
+                    <div class="details">
+                        <h2>${p.name}</h2>
+                        <p class="price">${p.price} Kip</p>
+                        <p>${p.description}</p><br>
+                        <p><strong>Category:</strong> ${p.category}</p><br>
+                        <button class="btn">ເພີ່ມລົງກະຕ່າ</button>
+                    </div>
+                `;
+            });
+    </script>
+</body>
+</html>
